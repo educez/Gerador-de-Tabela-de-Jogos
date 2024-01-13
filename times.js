@@ -1,19 +1,30 @@
 let times = ['Vasco', 'Flamengo', 'Botafogo', 'Fluminense']
 
-let jogos = []
-const rodadas = times.length - 1
+function gerarTabela(){
 
-console.log(`O Campeonato possui ${rodadas} 'rodadas'.`)
+    const rodadas = times.length - 1
+    const rodadasTotal = rodadas * 2
+    const jogosIda = []
+    const jogosVolta = []
 
-for (let r = 1; r <= rodadas; r++){
-    console.log(`'Rodada' ${r}`)
-    for (let i = 0, j = times.length-1; i < times.length; i++, j--){
-        console.log(times[i], times[j])
-        jogos.push(times[i])
-        jogos.push(times[j]) 
+    console.log(`O Campeonato possui ${rodadasTotal} 'rodadas'.`)
+
+    for (let r = 1; r <= rodadas; r++){
+        var a = r%2 != 0 ? a = 1 : a = 2 
+
+        for (let i = 0, j = times.length-1; i < times.length/2; i++, j--){
+            var jogoIda = a == 1 ? [times[i], times[j]] : [times[j], times[i]]
+            var jogoVolta = a == 1 ? [times[j], times[i]] : [times[i], times[j]]
+            jogosIda.push(jogoIda)
+            jogosVolta.push(jogoVolta)
+        }
+        times.splice(1, 0, times[rodadas])
+        times.pop()   
     }
-
-    times.splice(1, 0, times[rodadas])
-    times.pop()
-    
+    console.log('Jogos da Ida')
+    console.log(jogosIda)
+    console.log('Jogos da Volta')
+    console.log(jogosVolta)
 }
+
+gerarTabela()
